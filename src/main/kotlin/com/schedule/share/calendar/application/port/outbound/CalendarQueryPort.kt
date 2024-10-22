@@ -6,4 +6,6 @@ interface CalendarQueryPort {
     fun findAll(): List<Calendar>
 
     fun findById(id: Long): Calendar
+
+    fun findAllByUserId(userId: Long): List<Calendar>
 }

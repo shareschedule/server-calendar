@@ -19,19 +19,27 @@ class CalendarApi(
     @GetMapping("/{id}")
     fun get(
         @PathVariable id: Long,
+        @RequestHeader("X-UserId") userId: Long
     ): CalendarResponseDTO.Response =
-        calendarQuery.get(id = id).toResponse()
+        calendarQuery.get(
+            id = id,
+            userId = userId
+        ).toResponse()
 
     @Operation(summary = "캘린더 조회 API", description = "캘린더 조회 API")
     @GetMapping
-    fun getList(): List<CalendarResponseDTO.Response> =
-        calendarQuery.list().map { it.toResponse() }
+    fun getList(
+        @RequestHeader("X-UserId") userId: Long
+    ): List<CalendarResponseDTO.Response> =
+        calendarQuery.list(
+            userId = userId
+        ).map { it.toResponse() }
 
     @Operation(summary = "캘린더 등록 API", description = "캘린더 등록 API")
     @PostMapping
     fun post(
         @RequestBody body: CalendarRequestDTO.Calendar,
-        @RequestHeader("userId") userId: Long
+        @RequestHeader("X-UserId") userId: Long
         //@RequestPart(required = false) image: MultipartFile
     ): Long = calendarCommand.create(
         param = body.toVO(
@@ -46,7 +54,7 @@ class CalendarApi(
     fun put(
         @PathVariable id: Long,
         @RequestBody body: CalendarRequestDTO.Calendar,
-        @RequestHeader("userId") userId: Long
+        @RequestHeader("X-UserId") userId: Long
         // @RequestPart(required = false) image: MultipartFile
     ) {
         calendarCommand.update(

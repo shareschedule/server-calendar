@@ -12,8 +12,11 @@ class CalendarReader(
 ) : CalendarQuery {
 
     override fun get(
-        id: Long
+        id: Long,
+        UserId: Long
     ): CalendarVO.Calendar = calendarQueryPort.findById(id).toVO()
 
-    override fun list(): List<CalendarVO.Calendar> = calendarQueryPort.findAll().map { it.toVO() }
+    override fun list(
+        userId: Long
+    ): List<CalendarVO.Calendar> = calendarQueryPort.findAllByUserId(userId).map{ it.toVO() }
 }
