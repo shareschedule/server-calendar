@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SSSchedule
+    name: calendar
   profiles:
     active: dev
   config:
