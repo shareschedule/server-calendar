@@ -6,7 +6,6 @@ import com.schedule.share.infra.rdb.entity.CalendarEntity
 
 fun CalendarVO.Save.toDomain(
     id: Long? = null,
-    userId : Long
 ): Calendar =
     Calendar(
         id = id,
