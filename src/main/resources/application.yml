@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: SSSchedule
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://son:1234@localhost:9000
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://son:1234@localhost:8761/eureka
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: "jdbc:mysql://localhost:3306/schedule?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+#    username: root
+#    password: test1234
+#  jpa:
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    properties:
+#      hibernate:
+#        storage_engine: innodb
+#        format_sql: true
+#        use_sql_comments: true
+#    hibernate:
+#      ddl-auto: validate
+#    open-in-view: false
+#    show_sql: true
+#  logging.level:
+#    org.hibernate.SQL: debug
+#
+#server:
+#  port: 8085
