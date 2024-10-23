@@ -1,5 +1,6 @@
 package com.schedule.share.infra.security
 
+import com.netflix.discovery.EurekaClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,8 +19,7 @@ import java.util.function.Supplier
 @Profile("dev", "local")
 @Configuration
 class SecurityConfig(
-    @Value("\${API_GATEWAY_IP}")
-    private val GATEWAY_IP: String
+    private val discoveryClient: EurekaClient,
 ) {
     @Bean
     fun filterChain(http: HttpSecurity) : SecurityFilterChain {
@@ -37,8 +37,9 @@ class SecurityConfig(
     }
 
     private fun setHttpConfig(httpSecurity: HttpSecurity) {
-        val hasIpAddress = IpAddressMatcher(GATEWAY_IP)
-
+        val hasIpAddress = IpAddressMatcher(
+            discoveryClient.getNextServerFromEureka("GATEWAY", false).ipAddr
+        )
         httpSecurity
             .csrf { csrf: CsrfConfigurer<HttpSecurity> -> csrf.disable() }
             .authorizeHttpRequests { auth ->
