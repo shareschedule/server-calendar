@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.format.FormatterRegistry
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar
-import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Profile("local", "dev")
@@ -24,13 +23,6 @@ class SpringDocConfig(
         }
     }
 
-    override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/**")
-            .allowedOriginPatterns("*")
-            .allowedMethods("GET", "POST", "PUT", "DELETE")
-            .allowCredentials(true)
-    }
-
     @Bean
     fun openApi(): OpenAPI {
         return OpenAPI()
@@ -40,7 +32,6 @@ class SpringDocConfig(
                     .title("Share Schedule - Calendar API")
                     .version("1.0"),
             )
-//            .servers(listOf(Server().url(contextPath)))
     }
 
     @Bean
