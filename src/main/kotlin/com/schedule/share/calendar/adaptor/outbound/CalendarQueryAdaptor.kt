@@ -23,6 +23,6 @@ class CalendarQueryAdaptor(
 
     override fun findAllByUserId(userId: Long): List<Calendar> {
         return calendarRepository.findAllByUserId(userId)
-            .map { it.toDomain() }
+            .map { it.toDomain()  }
     }
 }

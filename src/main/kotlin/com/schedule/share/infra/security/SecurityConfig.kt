@@ -1,7 +1,6 @@
 package com.schedule.share.infra.security
 
 import com.netflix.discovery.EurekaClient
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -14,13 +13,14 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.security.web.util.matcher.IpAddressMatcher
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.util.function.Supplier
 
 @Profile("dev", "local")
 @Configuration
-class SecurityConfig(
+class SecurityConfig (
     private val discoveryClient: EurekaClient,
-) {
+) :WebMvcConfigurer{
     @Bean
     fun filterChain(http: HttpSecurity) : SecurityFilterChain {
         permitSwagger(http)

@@ -5,6 +5,13 @@ spring:
     active: dev
   config:
     import: optional:configserver:http://son:1234@localhost:9000
+  kafka:
+    producer:
+      bootstrap-servers: http://localhost:29092
+      acks: 1
+      batch-size: 1000000
+      properties:
+        linger.ms: 100
 eureka:
   client:
     register-with-eureka: true
