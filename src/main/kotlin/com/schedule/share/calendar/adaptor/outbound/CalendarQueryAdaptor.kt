@@ -5,22 +5,27 @@ import com.schedule.share.calendar.domain.Calendar
 import com.schedule.share.calendar.domain.mapper.toDomain
 import com.schedule.share.infra.rdb.repository.CalendarRepository
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class CalendarQueryAdaptor(
     private val calendarRepository: CalendarRepository
 ) : CalendarQueryPort {
+
+    @Transactional(readOnly = true)
     override fun findAll(): List<Calendar> {
         return calendarRepository.findAllByDeletedAtIsNull()
             .map { it.toDomain() }
     }
 
+    @Transactional(readOnly = true)
     override fun findById(id: Long): Calendar {
         return calendarRepository.findById(id)
             .orElseThrow()
             .toDomain()
     }
 
+    @Transactional(readOnly = true)
     override fun findAllByUserId(userId: Long): List<Calendar> {
         return calendarRepository.findAllByUserId(userId)
             .map { it.toDomain()  }
