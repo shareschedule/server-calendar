@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @Entity
-@Table(catalog = "schedule", name = "calendar")
+@Table(catalog = "calendar", name = "calendar")
 @EntityListeners(AuditingEntityListener::class)
 open class CalendarEntity(
     id: Long? = null,
